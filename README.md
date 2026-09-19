@@ -13,9 +13,11 @@ O projeto não usa backend, API, banco de dados ou framework.
 
 ## Como abrir
 
-No IntelliJ IDEA, abra `index.html` e use **Open in Browser**. O IntelliJ fornece apenas o endereço local necessário para os módulos JavaScript; toda a aplicação continua rodando no navegador.
+No IntelliJ IDEA, abra `index.html` e use **Open in Browser** com o servidor interno da IDE. Também é possível usar a extensão Live Server no VS Code.
 
-Também é possível usar a extensão Live Server no VS Code.
+Não abra as páginas pelo endereço `file:///`. Nesse modo, o navegador pode separar o `localStorage` de cada arquivo e o login não será compartilhado entre as páginas.
+
+A versão publicada está em [ipet-web-7mu.pages.dev](https://ipet-web-7mu.pages.dev/).
 
 ## Dados
 
@@ -47,6 +49,9 @@ ipet/
     └── img/
 ```
 
+## Fluxo de trabalho no Git
+
+A branch `main` mantém a versão estável publicada no Cloudflare. Novas funcionalidades usam branches `feature/nome-da-funcionalidade` e correções usam `fix/nome-da-correcao`. As alterações são testadas antes de entrar na `main`, e os commits recebem a autoria e o `Signed-off-by` de JVictorMachado.
 ## Observações para a apresentação
 
 O login é apenas visual e não armazena a senha. Os dados pertencem ao navegador usado na demonstração. Não existe sincronização entre computadores.
