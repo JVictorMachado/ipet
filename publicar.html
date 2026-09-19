@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#087fba" />
+    <meta
+      name="description"
+      content="Ajude um animal a encontrar o caminho de casa. Anúncios de animais perdidos e encontrados no iPet."
+    />
+    <title>iPet — Todo reencontro começa com uma ajuda</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="module" src="js/app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+    <header id="header"></header>
+    <main id="conteudo">
+      <section class="container section form-container">
+        <a class="back" href="anuncios.html">← Voltar aos anúncios</a>
+        <div class="eyebrow">UMA INFORMAÇÃO PODE FAZER A DIFERENÇA</div>
+        <h1 class="page-title">Publicar anúncio</h1>
+        <p class="subtitle">
+          Conte o que sabe sobre o animal. Os campos com * são obrigatórios.
+        </p>
+        <div id="demo-notice"></div>
+        <form id="publish-form" class="panel">
+          <fieldset>
+            <legend>O que aconteceu? *</legend>
+            <div class="type-options">
+              <label
+                ><input type="radio" name="tipo" value="perdido" required />
+                Perdi um animal</label
+              ><label
+                ><input type="radio" name="tipo" value="encontrado" required />
+                Encontrei um animal</label
+              >
+            </div>
+          </fieldset>
+          <h2 class="small-title">1. Sobre o animal</h2>
+          <div class="form-grid">
+            <label
+              >Nome, se conhecido<input
+                name="nome_animal"
+                type="text"
+                value=""
+                maxlength="150" /></label
+            ><label
+              >Espécie *<select name="especie" required>
+                <option value="">Selecione</option>
+                <option>Cachorro</option>
+                <option>Gato</option>
+                <option>Ave</option>
+                <option>Outro</option>
+              </select></label
+            ><label
+              >Raça<input
+                name="raca"
+                type="text"
+                value=""
+                maxlength="150" /></label
+            ><label
+              >Cor<input
+                name="cor"
+                type="text"
+                value=""
+                maxlength="150" /></label
+            ><label
+              >Porte<select name="porte">
+                <option value="">Não informado</option>
+                <option>Pequeno</option>
+                <option>Médio</option>
+                <option>Grande</option>
+              </select></label
+            ><label
+              >Sexo<select name="sexo">
+                <option value="">Não informado</option>
+                <option>Macho</option>
+                <option>Fêmea</option>
+                <option>Não identificado</option>
+              </select></label
+            >
+          </div>
+          <label
+            >Descrição *<textarea
+              name="descricao"
+              required
+              maxlength="3000"
+              rows="4"
+              placeholder="Como é o animal? Como aconteceu?"
+            ></textarea></label
+          ><label
+            >Características marcantes<input
+              name="caracteristicas"
+              type="text"
+              value=""
+              maxlength="150" /></label
+          ><label class="upload"
+            >Foto do animal *<input
+              type="file"
+              name="foto"
+              accept="image/jpeg,image/png,image/webp"
+              required /><small
+              >Uma foto por anúncio nesta primeira versão. JPG, PNG ou WebP, até
+              5 MB.</small
+            ><img
+              id="preview"
+              class="preview"
+              alt="Prévia da foto selecionada"
+              hidden
+          /></label>
+          <h2 class="small-title">2. Quando e onde?</h2>
+          <div class="form-grid">
+            <label
+              >Data da ocorrência *<input
+                name="data_ocorrencia"
+                type="date"
+                value=""
+                required
+                maxlength="150" /></label
+            ><label
+              >Cidade *<input
+                name="cidade"
+                type="text"
+                value=""
+                required
+                maxlength="150" /></label
+            ><label
+              >Bairro *<input
+                name="bairro"
+                type="text"
+                value=""
+                required
+                maxlength="150" /></label
+            ><label
+              >Ponto de referência<input
+                name="referencia"
+                type="text"
+                value=""
+                maxlength="150"
+            /></label>
+          </div>
+          <h2 class="small-title">3. Como entrar em contato?</h2>
+          <label
+            >Telefone, e-mail ou outra forma de contato *<input
+              name="contato"
+              type="text"
+              value=""
+              required
+              maxlength="200" /></label
+          ><label class="checkbox"
+            ><input type="checkbox" name="consentimento" required /> Autorizo a
+            exibição pública do contato informado neste anúncio.</label
+          >
+          <p class="form-message" role="status"></p>
+          <button class="button" disabled>Publicar anúncio ↗</button>
+        </form>
+      </section>
+    </main>
+    <footer id="footer"></footer>
+    <noscript>Ative o JavaScript para navegar nos anúncios do iPet.</noscript>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#087fba" />
+    <meta
+      name="description"
+      content="Ajude um animal a encontrar o caminho de casa. Anúncios de animais perdidos e encontrados no iPet."
+    />
+    <title>iPet — Todo reencontro começa com uma ajuda</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="module" src="js/app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+    <header id="header"></header>
+    <main id="conteudo">
+      <section class="container section narrow">
+        <div class="eyebrow">BOM TER VOCÊ POR AQUI</div>
+        <h1 class="page-title">Juntos pelo reencontro.</h1>
+        <p class="subtitle">
+          Entre ou crie sua conta para publicar um anúncio.
+        </p>
+        <div id="demo-notice"></div>
+        <div class="panel">
+          <div class="auth-tabs">
+            <button id="signin" class="active" type="button">Entrar</button
+            ><button id="signup" type="button">Criar conta</button>
+          </div>
+          <form id="auth-form">
+            <div id="name-field" hidden>
+              <label
+                >Seu nome<input
+                  name="nome"
+                  type="text"
+                  value=""
+                  maxlength="150"
+              /></label>
+            </div>
+            <label
+              >E-mail *<input
+                name="email"
+                type="email"
+                value=""
+                required
+                maxlength="150" /></label
+            ><label
+              >Senha *<input
+                name="senha"
+                type="password"
+                required
+                minlength="8"
+                autocomplete="current-password"
+              /><small>Use pelo menos 8 caracteres.</small></label
+            >
+            <p class="form-message" role="status"></p>
+            <button class="button full" disabled>Entrar</button>
+          </form>
+        </div>
+      </section>
+    </main>
+    <footer id="footer"></footer>
+    <noscript>Ative o JavaScript para navegar nos anúncios do iPet.</noscript>
+  </body>
+</html>
