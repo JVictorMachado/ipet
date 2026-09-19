@@ -13,7 +13,7 @@ O projeto não usa backend, API, banco de dados ou framework.
 
 ## Como abrir
 
-No IntelliJ IDEA, abra `index.html` e use **Open in Browser**. O IntelliJ fornece apenas o endereço local necessário para os módulos JavaScript; toda a aplicação continua rodando no navegador.
+No IntelliJ IDEA, abra `html/index.html` e use **Open in Browser**. O IntelliJ fornece apenas o endereço local necessário para os módulos JavaScript; toda a aplicação continua rodando no navegador.
 
 Também é possível usar a extensão Live Server no VS Code.
 
@@ -29,12 +29,13 @@ As imagens enviadas são reduzidas antes de serem salvas para ocupar menos espa�
 
 ```text
 ipet/
-├── index.html
-├── anuncios.html
-├── detalhes.html
-├── publicar.html
-├── meus-anuncios.html
-├── login.html
+├── html/
+│   ├── index.html
+│   ├── anuncios.html
+│   ├── detalhes.html
+│   ├── publicar.html
+│   ├── meus-anuncios.html
+│   └── login.html
 ├── css/
 │   └── style.css
 ├── js/

@@ -91,7 +91,9 @@ function montarRodape() {
 }
 
 function urlSeguraDaImagem(url) {
-  if (String(url).startsWith("assets/img/")) return url;
+  const caminho = String(url);
+  if (caminho.startsWith("../assets/img/")) return caminho;
+  if (caminho.startsWith("assets/img/")) return "../" + caminho;
   if (String(url).startsWith("data:image/")) return url;
   return "";
 }

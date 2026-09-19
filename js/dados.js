@@ -17,7 +17,7 @@ export const exemplos = [
     referencia: "Próximo à praça do bairro",
     data_ocorrencia: "2026-09-17",
     status: "ativo",
-    foto_url: "assets/img/cachorro.jpg",
+    foto_url: "../assets/img/cachorro.jpg",
     contato: "Contato indisponível em anúncios de exemplo",
   },
   {
@@ -37,7 +37,7 @@ export const exemplos = [
     referencia: "Comércio local da quadra SQN 210",
     data_ocorrencia: "2026-09-18",
     status: "ativo",
-    foto_url: "assets/img/gato.jpg",
+    foto_url: "../assets/img/gato.jpg",
     contato: "Contato indisponível em anúncios de exemplo",
   },
   {
@@ -57,7 +57,7 @@ export const exemplos = [
     referencia: "Perto do parque",
     data_ocorrencia: "2026-09-16",
     status: "ativo",
-    foto_url: "assets/img/luna.jpg",
+    foto_url: "../assets/img/luna.jpg",
     contato: "Contato indisponível em anúncios de exemplo",
   },
   {
@@ -77,7 +77,7 @@ export const exemplos = [
     referencia: "Próximo à feira permanente",
     data_ocorrencia: "2026-09-15",
     status: "ativo",
-    foto_url: "assets/img/cachorro.jpg",
+    foto_url: "../assets/img/cachorro.jpg",
     contato: "Contato indisponível em anúncios de exemplo",
   },
   {
@@ -97,7 +97,7 @@ export const exemplos = [
     referencia: "Próximo ao comércio local",
     data_ocorrencia: "2026-09-14",
     status: "ativo",
-    foto_url: "assets/img/gato.jpg",
+    foto_url: "../assets/img/gato.jpg",
     contato: "Contato indisponível em anúncios de exemplo",
   },
   {
@@ -117,7 +117,7 @@ export const exemplos = [
     referencia: "Entrada principal do parque",
     data_ocorrencia: "2026-09-13",
     status: "ativo",
-    foto_url: "assets/img/luna.jpg",
+    foto_url: "../assets/img/luna.jpg",
     contato: "Contato indisponível em anúncios de exemplo",
   },
 ];
