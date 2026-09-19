@@ -27,20 +27,54 @@
         <form id="filters" class="filter-panel">
           <div class="filter-main">
             <label
-              >Palavra-chave<input
+              >Cor ou raça<input
                 name="q"
                 type="text"
                 value=""
-                maxlength="150" /></label
+                maxlength="150"
+                placeholder="Ex.: caramelo ou SRD" /></label
             ><label
-              >Cidade ou bairro<input
-                name="local"
-                type="text"
-                value=""
-                maxlength="150" /></label
+              >Cidade ou bairro<select name="local">
+                <option value="">Selecione</option>
+                <option value="Águas Claras">Águas Claras</option>
+                <option value="Água Quente">Água Quente</option>
+                <option value="Arapoanga">Arapoanga</option>
+                <option value="Arniqueira">Arniqueira</option>
+                <option value="Brazlândia">Brazlândia</option>
+                <option value="Candangolândia">Candangolândia</option>
+                <option value="Ceilândia">Ceilândia</option>
+                <option value="Cruzeiro">Cruzeiro</option>
+                <option value="Fercal">Fercal</option>
+                <option value="Gama">Gama</option>
+                <option value="Guará">Guará</option>
+                <option value="Itapoã">Itapoã</option>
+                <option value="Jardim Botânico">Jardim Botânico</option>
+                <option value="Lago Norte">Lago Norte</option>
+                <option value="Lago Sul">Lago Sul</option>
+                <option value="Núcleo Bandeirante">Núcleo Bandeirante</option>
+                <option value="Paranoá">Paranoá</option>
+                <option value="Park Way">Park Way</option>
+                <option value="Planaltina">Planaltina</option>
+                <option value="Plano Piloto">Plano Piloto</option>
+                <option value="Recanto das Emas">Recanto das Emas</option>
+                <option value="Riacho Fundo">Riacho Fundo</option>
+                <option value="Riacho Fundo II">Riacho Fundo II</option>
+                <option value="Samambaia">Samambaia</option>
+                <option value="Santa Maria">Santa Maria</option>
+                <option value="São Sebastião">São Sebastião</option>
+                <option value="SCIA/Estrutural">SCIA/Estrutural</option>
+                <option value="SIA">SIA</option>
+                <option value="Sobradinho">Sobradinho</option>
+                <option value="Sobradinho II">Sobradinho II</option>
+                <option value="Sol Nascente/Pôr do Sol">Sol Nascente/Pôr do Sol</option>
+                <option value="Sudoeste/Octogonal">Sudoeste/Octogonal</option>
+                <option value="Taguatinga">Taguatinga</option>
+                <option value="Varjão">Varjão</option>
+                <option value="Vicente Pires">Vicente Pires</option>
+              </select></label
             ><label
               >Situação<select name="tipo">
-                <option value="">Todas</option>
+                <option value="">Selecione</option>
                 <option value="perdido">Perdido</option>
                 <option value="encontrado">Encontrado</option>
               </select></label
