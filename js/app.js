@@ -11,7 +11,10 @@ import {
   salvarUsuario,
 } from "./storage.js";
 
-const pagina = location.pathname.split("/").pop() || "index.html";
+const nomeDaPagina = location.pathname.split("/").pop() || "index";
+const pagina = nomeDaPagina.endsWith(".html")
+  ? nomeDaPagina
+  : `${nomeDaPagina}.html`;
 const parametros = new URLSearchParams(location.search);
 const conteudo = document.querySelector("main");
 let usuario = obterUsuario();
@@ -40,7 +43,17 @@ function nomeDoAnimal(anuncio) {
 }
 
 function avisoDeDemonstracao() {
-  return '<div class="demo"><span class="demo-dot"></span> Versão demonstrativa <span>· Os dados ficam salvos somente neste navegador.</span></div>';
+  const dicaLocal =
+    location.protocol === "file:"
+      ? " · Para usar o login, abra pelo site publicado ou por um servidor local."
+      : "";
+  return `<div class="demo"><span class="demo-dot"></span> Versão demonstrativa <span>· Os dados ficam salvos somente neste navegador.${dicaLocal}</span></div>`;
+}
+
+function exigirLogin(destino) {
+  if (usuario) return true;
+  location.replace(`login.html?voltar=${encodeURIComponent(destino)}`);
+  return false;
 }
 
 function montarCabecalho() {
@@ -122,6 +135,17 @@ function mostrarListaVazia(titulo) {
 
 function carregarInicio() {
   document.querySelector("#demo-notice").innerHTML = avisoDeDemonstracao();
+
+  if (usuario) {
+    const chamada = document.querySelector(".home-cta");
+    chamada.querySelector("h2").textContent = `Olá, ${usuario.nome}`;
+    chamada.querySelector("p").textContent =
+      "Acompanhe suas publicações ou crie um novo anúncio.";
+    const linkDaConta = chamada.querySelector('a[href^="login.html"]');
+    linkDaConta.href = "meus-anuncios.html";
+    linkDaConta.textContent = "Meus anúncios";
+  }
+
   const recentes = obterAnuncios().slice(0, 6);
   document.querySelector("#cards").innerHTML = recentes.length
     ? recentes.map(criarCard).join("")
@@ -129,6 +153,7 @@ function carregarInicio() {
 }
 
 function carregarLista(apenasMeus = false) {
+  if (apenasMeus && !exigirLogin("meus-anuncios.html")) return;
   document.querySelector("#demo-notice").innerHTML = avisoDeDemonstracao();
   if (apenasMeus) {
     document.querySelector(".page-title").textContent = "Meus anúncios";
@@ -174,6 +199,11 @@ function carregarLista(apenasMeus = false) {
 }
 
 function prepararLogin() {
+  if (usuario) {
+    location.replace("meus-anuncios.html");
+    return;
+  }
+
   const formulario = document.querySelector("#auth-form");
   const aviso = document.querySelector("#demo-notice");
   const botaoEntrar = document.querySelector("#signin");
@@ -208,7 +238,10 @@ function prepararLogin() {
       ? formulario.nome.value.trim()
       : email.split("@")[0] || "Visitante";
     salvarUsuario({ nome, email });
-    location.href = "meus-anuncios.html";
+    const destino = parametros.get("voltar");
+    location.href = ["publicar.html", "meus-anuncios.html"].includes(destino)
+      ? destino
+      : "meus-anuncios.html";
   });
 }
 
@@ -219,6 +252,7 @@ function carregarDetalhes() {
     return;
   }
 
+  const podeGerenciar = Boolean(usuario && anuncio.meuAnuncio);
   const campos = [
     ["Espécie", anuncio.especie],
     ["Raça", anuncio.raca],
@@ -245,7 +279,7 @@ function carregarDetalhes() {
           <p><strong>Características:</strong> ${escaparHtml(anuncio.caracteristicas || "Não informadas")}</p>
           <p><strong>Ponto de referência:</strong> ${escaparHtml(anuncio.referencia || "Não informado")}</p>
           <div class="contact"><h2 class="small-title">Contato</h2><p>${escaparHtml(anuncio.contato)}</p></div>
-          ${anuncio.meuAnuncio ? `<div class="owner-actions"><a class="button secondary" href="publicar.html?id=${encodeURIComponent(anuncio.id)}">Editar</a>${anuncio.status === "ativo" ? '<button class="button" id="resolve">Marcar como resolvido</button>' : ""}<button class="text-button danger" id="delete">Excluir anúncio</button></div>` : ""}
+          ${podeGerenciar ? `<div class="owner-actions"><a class="button secondary" href="publicar.html?id=${encodeURIComponent(anuncio.id)}">Editar</a>${anuncio.status === "ativo" ? '<button class="button" id="resolve">Marcar como resolvido</button>' : ""}<button class="text-button danger" id="delete">Excluir anúncio</button></div>` : ""}
         </div>
       </div>
     </section>`;
@@ -290,6 +324,8 @@ async function reduzirImagem(arquivo) {
 }
 
 function prepararPublicacao() {
+  if (!exigirLogin("publicar.html")) return;
+
   const formulario = document.querySelector("#publish-form");
   const anuncio = parametros.has("id")
     ? buscarAnuncio(parametros.get("id"))
