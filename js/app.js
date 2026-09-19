@@ -168,7 +168,7 @@ function carregarLista(apenasMeus = false) {
       formulario.elements.namedItem(nome).value = valor;
     }
   }
-  formulario.status.value = parametros.get("status") || "";
+  formulario.status.value = parametros.get("status") || "ativo";
 
   const anuncios = obterAnuncios().filter(
     (anuncio) => !apenasMeus || anuncio.meuAnuncio,
