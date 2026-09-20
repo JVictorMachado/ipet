@@ -129,8 +129,11 @@ function criarCard(anuncio) {
     </article>`;
 }
 
-function mostrarListaVazia(titulo) {
-  return `<div class="empty"><span aria-hidden="true">⌕</span><h3>${titulo}</h3><p>Tente outros filtros ou publique um novo anúncio.</p></div>`;
+function mostrarListaVazia(
+  titulo,
+  texto = "Tente outros filtros ou publique um novo anúncio.",
+) {
+  return `<div class="empty"><span aria-hidden="true">⌕</span><h3>${titulo}</h3><p>${texto}</p></div>`;
 }
 
 function carregarInicio() {
@@ -158,7 +161,7 @@ function carregarLista(apenasMeus = false) {
   if (apenasMeus) {
     document.querySelector(".page-title").textContent = "Meus anúncios";
     document.querySelector(".subtitle").textContent =
-      "Edite, encerre ou exclua os anúncios publicados neste navegador.";
+      "Edite, encerre, exclua ou pesquise os anúncios publicados neste navegador.";
     document.querySelector(".eyebrow").textContent = "ÁREA DE DEMONSTRAÇÃO";
   }
 
@@ -184,9 +187,12 @@ function carregarLista(apenasMeus = false) {
     document.querySelector("#cards").innerHTML = encontrados.length
       ? encontrados.map(criarCard).join("")
       : mostrarListaVazia(
-          apenasMeus
+          apenasMeus && anuncios.length === 0
             ? "Você ainda não publicou nenhum anúncio"
-            : "Nenhum anúncio encontrado",
+            : "Nenhum anúncio corresponde aos filtros",
+          apenasMeus && anuncios.length === 0
+            ? "Crie um anúncio para começar a usar esta pesquisa."
+            : "Altere ou limpe os filtros para tentar novamente.",
         );
   }
 
@@ -194,6 +200,7 @@ function carregarLista(apenasMeus = false) {
     evento.preventDefault();
     atualizarLista();
   });
+  formulario.addEventListener("input", atualizarLista);
   formulario.addEventListener("reset", () => setTimeout(atualizarLista));
   atualizarLista();
 }
