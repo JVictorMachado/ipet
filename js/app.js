@@ -99,7 +99,7 @@ function montarRodape() {
       </div>
       <div><h2>Links úteis</h2><a href="anuncios.html?tipo=perdido">Perdidos</a><a href="anuncios.html?tipo=encontrado">Encontrados</a><a href="index.html#como-funciona">Como funciona</a></div>
       <div><h2>Institucional</h2><a href="index.html#sobre">Sobre o iPet</a><span>Projeto acadêmico</span><span>Sistemas de Informação</span></div>
-      <div class="footer-message"><strong>Juntos por um mundo com<br />mais pets em casa. ♥</strong><span>© 2026 iPet</span></div>
+      <div class="footer-message"><strong>Juntos por um mundo com<br />mais pets em casa.</strong><span>© 2026 iPet</span></div>
     </div>`;
 }
 
