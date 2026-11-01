@@ -77,14 +77,14 @@ try {
   page.on("dialog", (d) => d.accept());
   await page.locator("#resolve").click();
   await page.getByText("✓ Caso resolvido", { exact: true }).waitFor();
-  await goto("anuncios.html");
+  await goto("anuncios.html?status=resolvido");
   await page.locator("#filters [name=q]").fill("bento");
   await page.locator("#filters .button").click();
   await page.locator(".pet-card").waitFor();
   await page.locator("[name=ordem]").selectOption("nome");
   await page.locator("[name=tipo]").selectOption("encontrado");
   await page.locator("#filters .button").click();
-  await page.getByText("Nenhum anúncio encontrado", { exact: true }).waitFor();
+  await page.getByText("Nenhum anúncio corresponde aos filtros", { exact: true }).waitFor();
   await goto("perfil.html");
   await fill("nome", "Perfil editado");
   await fill("senhaAtual", "senha-ui-12345");

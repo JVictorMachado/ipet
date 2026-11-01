@@ -28,3 +28,7 @@ Os dados anteriores continuam no localStorage, sem importação automática: nã
 ## Testes
 
 Execute `npm install`, depois `npm test` e `npm run test:browser`. O teste de navegador usa Microsoft Edge instalado. Os testes usam bancos temporários e não alteram o banco real. A captura móvel fica em `../artifacts/perfil-mobile.png`.
+
+## Publicação
+
+A versão estável em https://ipet-web-7mu.pages.dev/ usa Cloudflare Pages. Esta versão com Node.js e SQLite precisa de hospedagem com processo Node.js e disco persistente; não deve substituir a publicação estática antes de preparar o backend.

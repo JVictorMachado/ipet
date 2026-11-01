@@ -12,7 +12,10 @@ import {
   salvarUsuario,
 } from "./storage.js";
 
-const pagina = location.pathname.split("/").pop() || "index.html";
+const nomeDaPagina = location.pathname.split("/").pop() || "index";
+const pagina = nomeDaPagina.endsWith(".html")
+  ? nomeDaPagina
+  : `${nomeDaPagina}.html`;
 const parametros = new URLSearchParams(location.search);
 const conteudo = document.querySelector("main");
 let usuario;
@@ -87,12 +90,14 @@ function montarRodape() {
       </div>
       <div><h2>Links úteis</h2><a href="anuncios.html?tipo=perdido">Perdidos</a><a href="anuncios.html?tipo=encontrado">Encontrados</a><a href="index.html#como-funciona">Como funciona</a></div>
       <div><h2>Institucional</h2><a href="index.html#sobre">Sobre o iPet</a><span>Projeto acadêmico</span><span>Sistemas de Informação</span></div>
-      <div class="footer-message"><strong>Juntos por um mundo com<br />mais pets em casa. ♥</strong><span>© 2026 iPet</span></div>
+      <div class="footer-message"><strong>Juntos por um mundo com<br />mais pets em casa.</strong><span>© 2026 iPet</span></div>
     </div>`;
 }
 
 function urlSeguraDaImagem(url) {
-  if (String(url).startsWith("assets/img/")) return url;
+  const caminho = String(url);
+  if (caminho.startsWith("../assets/img/")) return caminho.slice(3);
+  if (caminho.startsWith("assets/img/")) return caminho;
   if (String(url).startsWith("data:image/")) return url;
   return "";
 }
@@ -115,12 +120,26 @@ function criarCard(anuncio) {
     </article>`;
 }
 
-function mostrarListaVazia(titulo) {
-  return `<div class="empty"><span aria-hidden="true">⌕</span><h3>${titulo}</h3><p>Tente outros filtros ou publique um novo anúncio.</p></div>`;
+function mostrarListaVazia(
+  titulo,
+  texto = "Tente outros filtros ou publique um novo anúncio.",
+) {
+  return `<div class="empty"><span aria-hidden="true">⌕</span><h3>${titulo}</h3><p>${texto}</p></div>`;
 }
 
 function carregarInicio() {
   document.querySelector("#demo-notice").innerHTML = avisoDeDemonstracao();
+
+  if (usuario) {
+    const chamada = document.querySelector(".home-cta");
+    chamada.querySelector("h2").textContent = `Olá, ${usuario.nome}`;
+    chamada.querySelector("p").textContent =
+      "Acompanhe suas publicações ou crie um novo anúncio.";
+    const linkDaConta = chamada.querySelector('a[href^="login.html"]');
+    linkDaConta.href = "meus-anuncios.html";
+    linkDaConta.textContent = "Meus anúncios";
+  }
+
   const recentes = obterAnuncios().slice(0, 6);
   document.querySelector("#cards").innerHTML = recentes.length
     ? recentes.map(criarCard).join("")
@@ -152,7 +171,7 @@ function carregarLista(apenasMeus = false, apenasFavoritos = false) {
       formulario.elements.namedItem(nome).value = valor;
     }
   }
-  formulario.status.value = parametros.get("status") || "";
+  formulario.status.value = parametros.get("status") || "ativo";
 
   const anuncios = obterAnuncios().filter(
     (anuncio) =>
@@ -179,9 +198,12 @@ function carregarLista(apenasMeus = false, apenasFavoritos = false) {
     document.querySelector("#cards").innerHTML = encontrados.length
       ? encontrados.map(criarCard).join("")
       : mostrarListaVazia(
-          apenasMeus
+          apenasMeus && anuncios.length === 0
             ? "Você ainda não publicou nenhum anúncio"
-            : "Nenhum anúncio encontrado",
+            : "Nenhum anúncio corresponde aos filtros",
+          apenasMeus && anuncios.length === 0
+            ? "Crie um anúncio para começar a usar esta pesquisa."
+            : "Altere ou limpe os filtros para tentar novamente.",
         );
   }
 
@@ -309,6 +331,7 @@ function carregarDetalhes() {
     return;
   }
 
+  const podeGerenciar = Boolean(usuario && anuncio.meuAnuncio);
   const campos = [
     ["Espécie", anuncio.especie],
     ["Raça", anuncio.raca],
