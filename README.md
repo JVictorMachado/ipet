@@ -1,57 +1,34 @@
 # iPet
 
-MVP acadêmico para divulgação de animais perdidos e encontrados.
+Sistema local de animais perdidos e encontrados, com interface HTML/CSS/JavaScript e servidor Node.js com SQLite.
 
-## Tecnologias
+## Iniciar
 
-- HTML
-- CSS
-- JavaScript puro
-- `localStorage` do navegador
+Requer Node.js 24 ou superior. Nesta pasta execute `npm start` e abra http://localhost:3000. Não abra o HTML diretamente ou pelo Live Server: as contas e os anúncios precisam do servidor.
 
-O projeto não usa backend, API, banco de dados ou framework.
+O servidor escuta apenas neste computador. Compartilhamento pela internet requer hospedagem pública com HTTPS e cookies seguros. Um link localhost funciona apenas no próprio computador.
 
-## Como abrir
+## Funcionalidades
 
-No IntelliJ IDEA, abra `index.html` e use **Open in Browser** com o servidor interno da IDE. Também é possível usar a extensão Live Server no VS Code.
-
-Não abra as páginas pelo endereço `file:///`. Nesse modo, o navegador pode separar o `localStorage` de cada arquivo e o login não será compartilhado entre as páginas.
-
-A versão publicada está em [ipet-web-7mu.pages.dev](https://ipet-web-7mu.pages.dev/).
+- Cadastro, login, logout e perfil com nome, e-mail, telefone e alteração de senha.
+- Recuperação com código secreto entregue no cadastro. Guarde o código: cada recuperação gera outro e invalida o anterior. Não há envio por e-mail nem recuperação sem o código.
+- Publicação, classificação, edição, exclusão e encerramento de anúncios por seu proprietário.
+- Galeria com até seis fotos, remoção e escolha da capa.
+- Meus anúncios e histórico de publicação, edição e encerramento. A exclusão é permanente.
+- Pesquisa, filtros por características e localização, categorias e ordenação.
+- Favoritos separados por conta: salvar, consultar e remover.
+- Compartilhamento nativo ou cópia do link; cópia do contato e links de telefone/e-mail quando o campo tiver esses formatos.
 
 ## Dados
 
-Na primeira abertura, `js/dados.js` fornece anúncios fictícios. Publicações, edições e o login demonstrativo ficam salvos no `localStorage` do navegador.
+O banco fica em `data/ipet.sqlite`. Faça backup dessa pasta com o servidor parado. Senhas usam scrypt com salt aleatório; sessões usam cookies HttpOnly/SameSite e duram sete dias. O servidor verifica a propriedade dos anúncios antes de editar ou excluir.
 
-Se os dados do navegador forem apagados, os anúncios criados pelo usuário também serão removidos e os exemplos iniciais voltarão a aparecer.
+Os dados anteriores continuam no localStorage, sem importação automática: não tinham vínculo confiável com uma conta. O novo banco começa vazio. O backend Java compilado na pasta superior não é usado.
 
-As imagens enviadas são reduzidas antes de serem salvas para ocupar menos espaço. Como o `localStorage` tem limite, esta versão utiliza uma foto por anúncio.
+## Testes
 
-## Estrutura
+Execute `npm install`, depois `npm test` e `npm run test:browser`. O teste de navegador usa Microsoft Edge instalado. Os testes usam bancos temporários e não alteram o banco real. A captura móvel fica em `../artifacts/perfil-mobile.png`.
 
-```text
-ipet/
-├── index.html
-├── anuncios.html
-├── detalhes.html
-├── publicar.html
-├── meus-anuncios.html
-├── login.html
-├── css/
-│   └── style.css
-├── js/
-│   ├── app.js
-│   ├── dados.js
-│   ├── filtros.js
-│   └── storage.js
-└── assets/
-    ├── logo-ipet.png
-    └── img/
-```
+## Publicação
 
-## Fluxo de trabalho no Git
-
-A branch `main` mantém a versão estável publicada no Cloudflare. Novas funcionalidades usam branches `feature/nome-da-funcionalidade` e correções usam `fix/nome-da-correcao`. As alterações são testadas antes de entrar na `main`, e os commits recebem a autoria e o `Signed-off-by` de JVictorMachado.
-## Observações para a apresentação
-
-O login é apenas visual e não armazena a senha. Os dados pertencem ao navegador usado na demonstração. Não existe sincronização entre computadores.
+A versão estável em https://ipet-web-7mu.pages.dev/ usa Cloudflare Pages. Esta versão com Node.js e SQLite precisa de hospedagem com processo Node.js e disco persistente; não deve substituir a publicação estática antes de preparar o backend.
