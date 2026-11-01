@@ -1,0 +1,17 @@
+{
+  "name": "ipet",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node tests/browser.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1",
+    "prettier": "^3.9.10"
+  }
+}

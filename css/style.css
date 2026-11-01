@@ -1519,3 +1519,51 @@ footer {
     text-align: left;
   }
 }
+
+[hidden] {
+  display: none !important;
+}
+.account-nav {
+  flex-wrap: wrap;
+}
+.photo-manager,
+.gallery {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.photo-manager > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 140px;
+}
+.photo-manager img,
+.gallery img {
+  width: 120px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.gallery button,
+.photo-manager button {
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px;
+  background: white;
+}
+.owner-actions {
+  flex-wrap: wrap;
+}
+#recovery-code {
+  overflow-wrap: anywhere;
+  font-size: 1.2rem;
+}
+.detail-media {
+  min-width: 0;
+}
+.detail-photo {
+  width: 100%;
+}

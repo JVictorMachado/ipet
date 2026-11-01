@@ -1,52 +1,30 @@
 # iPet
 
-MVP acadêmico para divulgação de animais perdidos e encontrados.
+Sistema local de animais perdidos e encontrados, com interface HTML/CSS/JavaScript e servidor Node.js com SQLite.
 
-## Tecnologias
+## Iniciar
 
-- HTML
-- CSS
-- JavaScript puro
-- `localStorage` do navegador
+Requer Node.js 24 ou superior. Nesta pasta execute `npm start` e abra http://localhost:3000. Não abra o HTML diretamente ou pelo Live Server: as contas e os anúncios precisam do servidor.
 
-O projeto não usa backend, API, banco de dados ou framework.
+O servidor escuta apenas neste computador. Compartilhamento pela internet requer hospedagem pública com HTTPS e cookies seguros. Um link localhost funciona apenas no próprio computador.
 
-## Como abrir
+## Funcionalidades
 
-No IntelliJ IDEA, abra `index.html` e use **Open in Browser**. O IntelliJ fornece apenas o endereço local necessário para os módulos JavaScript; toda a aplicação continua rodando no navegador.
-
-Também é possível usar a extensão Live Server no VS Code.
+- Cadastro, login, logout e perfil com nome, e-mail, telefone e alteração de senha.
+- Recuperação com código secreto entregue no cadastro. Guarde o código: cada recuperação gera outro e invalida o anterior. Não há envio por e-mail nem recuperação sem o código.
+- Publicação, classificação, edição, exclusão e encerramento de anúncios por seu proprietário.
+- Galeria com até seis fotos, remoção e escolha da capa.
+- Meus anúncios e histórico de publicação, edição e encerramento. A exclusão é permanente.
+- Pesquisa, filtros por características e localização, categorias e ordenação.
+- Favoritos separados por conta: salvar, consultar e remover.
+- Compartilhamento nativo ou cópia do link; cópia do contato e links de telefone/e-mail quando o campo tiver esses formatos.
 
 ## Dados
 
-Na primeira abertura, `js/dados.js` fornece anúncios fictícios. Publicações, edições e o login demonstrativo ficam salvos no `localStorage` do navegador.
+O banco fica em `data/ipet.sqlite`. Faça backup dessa pasta com o servidor parado. Senhas usam scrypt com salt aleatório; sessões usam cookies HttpOnly/SameSite e duram sete dias. O servidor verifica a propriedade dos anúncios antes de editar ou excluir.
 
-Se os dados do navegador forem apagados, os anúncios criados pelo usuário também serão removidos e os exemplos iniciais voltarão a aparecer.
+Os dados anteriores continuam no localStorage, sem importação automática: não tinham vínculo confiável com uma conta. O novo banco começa vazio. O backend Java compilado na pasta superior não é usado.
 
-As imagens enviadas são reduzidas antes de serem salvas para ocupar menos espaço. Como o `localStorage` tem limite, esta versão utiliza uma foto por anúncio.
+## Testes
 
-## Estrutura
-
-```text
-ipet/
-├── index.html
-├── anuncios.html
-├── detalhes.html
-├── publicar.html
-├── meus-anuncios.html
-├── login.html
-├── css/
-│   └── style.css
-├── js/
-│   ├── app.js
-│   ├── dados.js
-│   ├── filtros.js
-│   └── storage.js
-└── assets/
-    ├── logo-ipet.png
-    └── img/
-```
-
-## Observações para a apresentação
-
-O login é apenas visual e não armazena a senha. Os dados pertencem ao navegador usado na demonstração. Não existe sincronização entre computadores.
+Execute `npm install`, depois `npm test` e `npm run test:browser`. O teste de navegador usa Microsoft Edge instalado. Os testes usam bancos temporários e não alteram o banco real. A captura móvel fica em `../artifacts/perfil-mobile.png`.

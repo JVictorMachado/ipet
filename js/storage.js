@@ -1,73 +1,27 @@
-import { exemplos } from "./dados.js";
-
-const CHAVE_ANUNCIOS = "ipet_anuncios";
-const CHAVE_USUARIO = "ipet_usuario";
-
-export function obterAnuncios() {
-  const salvos = localStorage.getItem(CHAVE_ANUNCIOS);
-  if (salvos) return JSON.parse(salvos);
-
-  const iniciais = exemplos.map((anuncio) => ({
-    ...anuncio,
-    meuAnuncio: false,
-  }));
-  salvarLista(iniciais);
-  return iniciais;
+let anuncios = [],
+  usuario = null;
+export async function api(path, method = "GET", body) {
+  const response = await fetch("/api" + path, {
+    method,
+    headers: body ? { "Content-Type": "application/json" } : {},
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.erro || "Falha na operação.");
+  return data;
 }
-
-export function buscarAnuncio(id) {
-  return obterAnuncios().find((anuncio) => String(anuncio.id) === String(id));
+export async function carregarDados() {
+  [usuario, anuncios] = await Promise.all([api("/me"), api("/ads")]);
 }
-
-export function adicionarAnuncio(dados) {
-  const anuncios = obterAnuncios();
-  const novo = {
-    ...dados,
-    id: String(Date.now()),
-    status: "ativo",
-    meuAnuncio: true,
-    created_at: new Date().toISOString(),
-  };
-  anuncios.unshift(novo);
-  salvarLista(anuncios);
-  return novo;
-}
-
-export function atualizarAnuncio(id, dados) {
-  const anuncios = obterAnuncios();
-  const indice = anuncios.findIndex(
-    (anuncio) => String(anuncio.id) === String(id),
-  );
-  if (indice === -1) throw new Error("Anúncio não encontrado.");
-
-  anuncios[indice] = { ...anuncios[indice], ...dados };
-  salvarLista(anuncios);
-  return anuncios[indice];
-}
-
-export function removerAnuncio(id) {
-  const anuncios = obterAnuncios().filter(
-    (anuncio) => String(anuncio.id) !== String(id),
-  );
-  salvarLista(anuncios);
-}
-
-export function marcarComoResolvido(id) {
-  return atualizarAnuncio(id, { status: "resolvido" });
-}
-
-export function obterUsuario() {
-  return JSON.parse(localStorage.getItem(CHAVE_USUARIO) || "null");
-}
-
-export function salvarUsuario(usuario) {
-  localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuario));
-}
-
-export function sairUsuario() {
-  localStorage.removeItem(CHAVE_USUARIO);
-}
-
-function salvarLista(anuncios) {
-  localStorage.setItem(CHAVE_ANUNCIOS, JSON.stringify(anuncios));
-}
+export const obterAnuncios = () => anuncios;
+export const buscarAnuncio = (id) => anuncios.find((a) => a.id === id);
+export const obterUsuario = () => usuario;
+export const adicionarAnuncio = (dados) => api("/ads", "POST", dados);
+export const atualizarAnuncio = (id, dados) => api("/ads/" + id, "PUT", dados);
+export const marcarComoResolvido = (id) =>
+  atualizarAnuncio(id, { status: "resolvido" });
+export const removerAnuncio = (id) => api("/ads/" + id, "DELETE");
+export const sairUsuario = () => api("/logout", "POST");
+export const salvarUsuario = () => {
+  throw new Error("Use o cadastro de conta.");
+};
